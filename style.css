@@ -35,7 +35,7 @@ html,body{
 }
 .center>h1{
     font-size: 2.5vw;
-    margin-bottom: 3vw;
+    margin: 1.5vw 0 3vw 0;
     border-bottom: 1px dashed white;
 }
 .center .game-board{
@@ -125,4 +125,18 @@ html,body{
 }
 .cell.disabled{
     background-color: #8c8c8c;
+}
+
+.alertBox{
+    position: absolute;
+    top: 0;
+    background-color: #dfdfdf;
+    color: #4d4b51;
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 22px;
+    font-weight: 600;
+    font-family: "gilroy";
+    height: 40px;
+    display:none;
 }

@@ -38,6 +38,7 @@ let gamecell = document.querySelectorAll(".cell");
 let player1 = document.querySelector(".player1");
 let player2 = document.querySelector(".player2");
 let restartbtn = document.querySelector("button");
+let alertBox = document.querySelector(".alertBox");
 
 //Making Variables
 
@@ -51,28 +52,28 @@ player2.textContent = `Player 2: ${nextPlayer}`;
 //Function to Start Your Game
 const startGame = () => {
     gamecell.forEach((cell) => {
-        cell.addEventListener("click",handleClick);
+        cell.addEventListener("click", handleClick);
     });
 }
 
 
 //Function to handle Click
-const handleClick = (e)=>{
+const handleClick = (e) => {
     if (e.target.textContent === "") {
         e.target.textContent = PlayerTurn;
-        if(checkWin())
-        {
-            console.log(`${PlayerTurn} is a winner!`);
+        if (checkWin()) {
+            // console.log(`${PlayerTurn} is a winner!`);
+            showalert(`${PlayerTurn} is a winner!`);
             disableCells();
         }
-        else if(checkTie())
-        {
-            console.log("It's a Tie");
+        else if (checkTie()) {
+            // console.log("It's a Tie");
+            showalert("It's a Tie");
             disableCells();
         }
-        else
-        {
+        else {
             ChangePlayerTurn();
+            showalert(`Turn for player: ${PlayerTurn}`)
         }
     }
 }
@@ -108,8 +109,8 @@ const checkWin = () => {
         if (gamecell[pos1].textContent !== "" &&
             gamecell[pos1].textContent === gamecell[pos2].textContent &&
             gamecell[pos2].textContent === gamecell[pos3].textContent) {
-              
-                return true;
+
+            return true;
         }
     }
     return false;
@@ -117,11 +118,10 @@ const checkWin = () => {
 
 // Function to check for a Tie
 
-const checkTie = ()=>{
+const checkTie = () => {
     let emptyCellCount = 0;
-    gamecell.forEach((cell)=>{
-        if(cell.textContent === '')
-        {
+    gamecell.forEach((cell) => {
+        if (cell.textContent === '') {
             emptyCellCount++;
         }
     });
@@ -130,26 +130,34 @@ const checkTie = ()=>{
 }
 
 //Function to disable game-board cells after a win a tie
-const disableCells = ()=>{
-    gamecell.forEach((cell)=>{
-            cell.removeEventListener("click",handleClick)
-            cell.classList.add('disabled');
+const disableCells = () => {
+    gamecell.forEach((cell) => {
+        cell.removeEventListener("click", handleClick)
+        cell.classList.add('disabled');
     });
 }
 
 //Function to restart game
-const restartGame = ()=>{
-    gamecell.forEach((cell)=>{
+const restartGame = () => {
+    gamecell.forEach((cell) => {
         cell.textContent = '';
         cell.classList.remove('disabled');
     });
     startGame();
 }
 
+//Function to show alert 
+const showalert = (msg) => {
+    alertBox.style.display = 'block';
+    alertBox.textContent = msg;
+    setTimeout(() => {
+        alertBox.style.display = 'none';
+    }, 3000)
+}
+
+
 //Restart game
-restartbtn.addEventListener("click",restartGame);
-
-
+restartbtn.addEventListener("click", restartGame);
 
 //call to start game
 startGame();
